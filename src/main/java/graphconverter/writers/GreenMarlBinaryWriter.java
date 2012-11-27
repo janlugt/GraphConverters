@@ -18,17 +18,17 @@ public class GreenMarlBinaryWriter {
 	private static final int DUMMY_NODE = 1;
 	
 	public static void write(Graph graph, String filename) throws IOException {
-		ByteBuffer[] bbs = allocateBuffers(totalIntCount(graph));
+		ByteBuffer[] buffers = allocateBuffers(totalIntCount(graph));
 
 		Integer[] keys = getVertexArray(graph);
 		Map<Integer, Integer> sourceIndex = sequentializeVertexIds(keys);
 
 		int current = 0;
-		current = writeHeader(graph, bbs, current);
-		current = writeVertices(graph, bbs, current, keys);
-		current = writeEdges(graph, bbs, current, keys, sourceIndex);
+		current = writeHeader(graph, buffers, current);
+		current = writeVertices(graph, buffers, current, keys);
+		current = writeEdges(graph, buffers, current, keys, sourceIndex);
 
-		writeToFile(filename, bbs);
+		writeToFile(filename, buffers);
 	}
 
 	private static long totalIntCount(Graph graph) {
@@ -67,8 +67,8 @@ public class GreenMarlBinaryWriter {
 		return sourceIndex;
 	}
 
-	private static int writeHeader(Graph graph, ByteBuffer[] bbs, int current) {
-		IntBuffer ib = bbs[current].asIntBuffer();
+	private static int writeHeader(Graph graph, ByteBuffer[] buffers, int current) {
+		IntBuffer ib = buffers[current].asIntBuffer();
 		ib.put(0x03939999); // Magic number
 		ib.put(4); // Node identifier size
 		ib.put(4); // Edge identifier size
@@ -77,44 +77,44 @@ public class GreenMarlBinaryWriter {
 		return current;
 	}
 	
-	private static int writeVertices(Graph graph, ByteBuffer[] bbs, int current, Integer[] keys) {
-		IntBuffer ib = bbs[current].asIntBuffer();
+	private static int writeVertices(Graph graph, ByteBuffer[] buffers, int current, Integer[] keys) {
+		IntBuffer ib = buffers[current].asIntBuffer();
 		int count = 0;
 		for (Integer source : keys) {
 			ib.put(count);
 			if (!ib.hasRemaining()) {
 				current++;
-				ib = bbs[current].asIntBuffer();
+				ib = buffers[current].asIntBuffer();
 			}
 			count += graph.get(source).size();
 		}
 		ib.put(count); // final dummy element
 		if (!ib.hasRemaining()) {
 			current++;
-			ib = bbs[current].asIntBuffer();
+			ib = buffers[current].asIntBuffer();
 		}
 		return current;
 	}
 	
-	private static int writeEdges(Graph graph, ByteBuffer[] bbs, int current, Integer[] keys, Map<Integer, Integer> sourceIndex) {
-		IntBuffer ib = bbs[current].asIntBuffer();
+	private static int writeEdges(Graph graph, ByteBuffer[] buffers, int current, Integer[] keys, Map<Integer, Integer> sourceIndex) {
+		IntBuffer ib = buffers[current].asIntBuffer();
 		for (Integer source : keys) {
 			for (Integer dest : graph.get(source)) {
 				ib.put(sourceIndex.get(dest));
 				if (!ib.hasRemaining()) {
 					current++;
-					ib = bbs[current].asIntBuffer();
+					ib = buffers[current].asIntBuffer();
 				}
 			}
 		}
 		return current;
 	}
 
-	private static void writeToFile(String filename, ByteBuffer[] bbs)
+	private static void writeToFile(String filename, ByteBuffer[] buffers)
 			throws FileNotFoundException, IOException {
 		FileOutputStream fos = new FileOutputStream(filename);
 		BufferedOutputStream bos = new BufferedOutputStream(fos, Settings.BUFFERED_STREAM_SIZE);
-		for (ByteBuffer bb : bbs) {
+		for (ByteBuffer bb : buffers) {
 			bos.write(bb.array());
 		}
 		bos.close();
