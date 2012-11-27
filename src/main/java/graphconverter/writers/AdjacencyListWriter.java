@@ -23,33 +23,11 @@ public class AdjacencyListWriter {
 		for (Integer source : graph.keySet()) {
 			List<Integer> dests = graph.get(source);
 			out.print(source);
-			switch (printValues) {
-			case DUMMY:
-				out.print('\t');
-				out.print(Settings.DUMMY_NODE_VALUE);
-				break;
-			case RANDOM_INTS:
-				out.print('\t');
-				out.print(rand.nextInt(Settings.MAXIMUM_RANDOM_INT));
-				break;
-			case NONE:
-				break;
-			}
+			printVertexValue(out, printValues);
 			for (Integer dest : dests) {
 				out.print('\t');
 				out.print(dest);
-				switch (printValues) {
-				case DUMMY:
-					out.print('\t');
-					out.print(Settings.DUMMY_EDGE_VALUE);
-					break;
-				case RANDOM_INTS:
-					out.print('\t');
-					out.print(rand.nextInt(Settings.MAXIMUM_RANDOM_INT));
-					break;
-				case NONE:
-					break;
-				}
+				printEdgeValue(out, printValues);
 			}
 			out.println();
 		}
@@ -57,5 +35,35 @@ public class AdjacencyListWriter {
 		out.close();
 		bos.close();
 		fos.close();
+	}
+
+	private static void printEdgeValue(PrintStream out, NodeEdgeValues printValues) {
+		switch (printValues) {
+		case DUMMY:
+			out.print('\t');
+			out.print(Settings.DUMMY_EDGE_VALUE);
+			break;
+		case RANDOM_INTS:
+			out.print('\t');
+			out.print(rand.nextInt(Settings.MAXIMUM_RANDOM_INT));
+			break;
+		case NONE:
+			break;
+		}
+	}
+
+	private static void printVertexValue(PrintStream out, NodeEdgeValues printValues) {
+		switch (printValues) {
+		case DUMMY:
+			out.print('\t');
+			out.print(Settings.DUMMY_NODE_VALUE);
+			break;
+		case RANDOM_INTS:
+			out.print('\t');
+			out.print(rand.nextInt(Settings.MAXIMUM_RANDOM_INT));
+			break;
+		case NONE:
+			break;
+		}
 	}
 }

@@ -27,18 +27,7 @@ public class EdgeListWriter {
 				out.print(source);
 				out.print('\t');
 				out.print(dest);
-				switch (printValues) {
-				case DUMMY:
-					out.print('\t');
-					out.print(Settings.DUMMY_EDGE_VALUE);
-					break;
-				case RANDOM_INTS:
-					out.print('\t');
-					out.print(rand.nextInt(Settings.MAXIMUM_RANDOM_INT));
-					break;
-				case NONE:
-					break;
-				}
+				printEdgeValue(out, printValues);
 			}
 			out.println();
 		}
@@ -46,5 +35,21 @@ public class EdgeListWriter {
 		out.close();
 		bos.close();
 		fos.close();
+	}
+
+	private static void printEdgeValue(PrintStream out,
+			NodeEdgeValues printValues) {
+		switch (printValues) {
+		case DUMMY:
+			out.print('\t');
+			out.print(Settings.DUMMY_EDGE_VALUE);
+			break;
+		case RANDOM_INTS:
+			out.print('\t');
+			out.print(rand.nextInt(Settings.MAXIMUM_RANDOM_INT));
+			break;
+		case NONE:
+			break;
+		}
 	}
 }
