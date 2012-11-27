@@ -1,4 +1,4 @@
-package binarytoadjacencylistconverter;
+package util;
 
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
@@ -11,9 +11,7 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
-import util.Settings;
-
-public class Main {
+public class DirectBinaryToAdjacencyListConverter {
 
 	public static void main(String[] args) throws IOException {
 		if (args.length != 1) {
