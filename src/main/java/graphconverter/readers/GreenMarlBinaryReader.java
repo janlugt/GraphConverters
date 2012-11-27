@@ -10,6 +10,7 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
 import util.Graph;
+import util.Settings;
 
 public class GreenMarlBinaryReader {
 	public static Graph read(String filename) throws IOException {
@@ -19,15 +20,18 @@ public class GreenMarlBinaryReader {
 		MappedByteBuffer bb = ch.map(MapMode.READ_ONLY, 0, ch.size());
 		bb.order(ByteOrder.BIG_ENDIAN);
 		IntBuffer ib = bb.asIntBuffer();
-		int magic = ib.get();
-		if (magic != 0x03939999) {
+		if (ib.get() != Settings.GREEN_MARL_MAGIC_NUMBER) {
 			System.err.println("Error: magic number does not match.");
 			System.exit(-1);
 		}
-		@SuppressWarnings("unused")
-		int nodeIdentifierSize = ib.get();
-		@SuppressWarnings("unused")
-		int edgeIdentifierSize = ib.get();
+		if(ib.get() != Settings.GREEN_MARL_NODE_IDENTIFIER_SIZE) {
+			System.err.println("Invalid node identifier size.");
+			System.exit(-1);
+		}
+		if(ib.get() != Settings.GREEN_MARL_EDGE_IDENTIFIER_SIZE) {
+			System.err.println("Invalid node identifier size.");
+			System.exit(-1);
+		}
 		graph.totalVertexCount = ib.get();
 		graph.totalEdgeCount = ib.get();
 

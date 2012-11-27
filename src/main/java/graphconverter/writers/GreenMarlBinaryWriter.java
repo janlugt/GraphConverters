@@ -69,9 +69,9 @@ public class GreenMarlBinaryWriter {
 
 	private static int writeHeader(Graph graph, ByteBuffer[] buffers, int current) {
 		IntBuffer ib = buffers[current].asIntBuffer();
-		ib.put(0x03939999); // Magic number
-		ib.put(4); // Node identifier size
-		ib.put(4); // Edge identifier size
+		ib.put(Settings.GREEN_MARL_MAGIC_NUMBER); // Magic number
+		ib.put(Settings.GREEN_MARL_NODE_IDENTIFIER_SIZE); // Node identifier size
+		ib.put(Settings.GREEN_MARL_EDGE_IDENTIFIER_SIZE); // Edge identifier size
 		ib.put(graph.totalVertexCount);
 		ib.put(graph.totalEdgeCount);
 		return current;
