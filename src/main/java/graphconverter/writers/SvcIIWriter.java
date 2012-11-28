@@ -40,7 +40,7 @@ public class SvcIIWriter {
 		int[] vertexCounts = new int[numSegments];
 		for (int i = 0; i < numSegments; i++) {
 			float verticesPerSegment = (float) graph.totalVertexCount / numSegments;
-			vertexCounts[i] = (int) (Math.floor((numSegments+1) * verticesPerSegment) - Math.floor(numSegments * verticesPerSegment));
+			vertexCounts[i] = (int) (Math.floor((i+1) * verticesPerSegment) - Math.floor(i * verticesPerSegment));
 		}
 		return vertexCounts;
 	}
