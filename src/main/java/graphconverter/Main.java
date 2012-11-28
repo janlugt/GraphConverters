@@ -4,6 +4,7 @@ import graphconverter.readers.AdjacencyListReader;
 import graphconverter.readers.EdgeListReader;
 import graphconverter.readers.GreenMarlBinaryReader;
 import graphconverter.writers.AdjacencyListWriter;
+import graphconverter.writers.AvroWriter;
 import graphconverter.writers.GreenMarlBinaryWriter;
 import graphconverter.writers.SvcIIWriter;
 
@@ -55,10 +56,9 @@ public class Main {
 		GreenMarlBinaryWriter.write(graph, filenameBase + ".bin");
 		SvcIIWriter.write(graph, filenameBase + "_svcii_1", 1);
 		SvcIIWriter.write(graph, filenameBase + "_svcii_2", 2);
-		SvcIIWriter.write(graph, filenameBase + "_svcii_3", 3);
 		SvcIIWriter.write(graph, filenameBase + "_svcii_4", 4);
 		SvcIIWriter.write(graph, filenameBase + "_svcii_8", 8);
-		SvcIIWriter.write(graph, filenameBase + "_svcii_16", 16);
+		AvroWriter.write(graph, filenameBase + ".avro");
 	}
 	
 	public static void main(String[] args) {
