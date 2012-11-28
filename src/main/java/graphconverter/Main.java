@@ -50,10 +50,10 @@ public class Main {
 		AdjacencyListWriter.write(graph, filenameBase + "_novalues.adj", NodeEdgeValues.NONE);
 		AdjacencyListWriter.write(graph, filenameBase + "_random_ints.adj", NodeEdgeValues.RANDOM_INTS);
 		GreenMarlBinaryWriter.write(graph, filenameBase + ".bin");
-		SvcIIWriter.write(graph, filenameBase + "_svcii_1", 1);
-		SvcIIWriter.write(graph, filenameBase + "_svcii_2", 2);
-		SvcIIWriter.write(graph, filenameBase + "_svcii_4", 4);
-		SvcIIWriter.write(graph, filenameBase + "_svcii_8", 8);
+		SvcIIWriter.write(graph, filenameBase + "_svcii_1", 1, true);
+		SvcIIWriter.write(graph, filenameBase + "_svcii_2", 2, true);
+		SvcIIWriter.write(graph, filenameBase + "_svcii_4", 4, true);
+		SvcIIWriter.write(graph, filenameBase + "_svcii_8", 8, true);
 		AvroWriter.write(graph, filenameBase + ".avro");
 	}
 	

@@ -19,13 +19,15 @@ public class SvcIIWriter {
 	
 	final static int SRC = 0, DEST = 1;
 	
-	public static void write(Graph graph, String filename, int numSegments) throws IOException {
+	public static void write(Graph graph, String filename, int numSegments, boolean roundRobin) throws IOException {
 		// Create directory
 		new File(filename).mkdir();
 
 		int[] vertexCounts = getVertexCountsPerSegment(graph, numSegments);
 		Integer[] vertices = getVertexArray(graph);
-		Map<Integer, vertexInfo> sourceIndex = sequentializeVertexIds(vertexCounts, vertices);
+		Map<Integer, vertexInfo> sourceIndex = roundRobin ?
+				sequentializeVertexIdsRoundRobin(vertexCounts, vertices, numSegments) :
+				sequentializeVertexIds(vertexCounts, vertices);
 		int[][] outEdgeCount = getEdgeCounts(graph, numSegments, vertices, sourceIndex);
 		vertices = null; // Allow vertices to be garbage-collected
 		
@@ -62,6 +64,22 @@ public class SvcIIWriter {
 				currentSegment++;
 				vertexIndex = 0;
 			}
+		}
+		return sourceIndex;
+	}
+	
+	private static Map<Integer, vertexInfo> sequentializeVertexIdsRoundRobin(
+			int[] vertexCount, Integer[] vertices, int numSegments) {
+		Map<Integer, vertexInfo> sourceIndex = new HashMap<Integer, vertexInfo>();
+		int currentSegment = 0;
+		int[] vertexIndex = new int[numSegments];
+		for (int src : vertices) {
+			while (vertexIndex[currentSegment] == vertexCount[currentSegment]) {
+				currentSegment = (currentSegment + 1) % numSegments;
+			}
+			sourceIndex.put(src, new vertexInfo(currentSegment, vertexIndex[currentSegment]));
+			vertexIndex[currentSegment]++;
+			currentSegment = (currentSegment + 1) % numSegments;
 		}
 		return sourceIndex;
 	}
