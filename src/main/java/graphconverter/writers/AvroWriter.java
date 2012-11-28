@@ -19,7 +19,7 @@ public class AvroWriter {
 	private final static String SRC_ID = "src_id", SRC_VAL = "src_val", EDGE_LIST = "edge_list";
 	
 	public static void write(Graph graph, String filename) throws IOException {
-		Schema vertexSchema = new Schema.Parser().parse(new File("src/main/avro/gm_avro_graph.avpr"));
+		Schema vertexSchema = new Schema.Parser().parse(new File("src/main/avro/greenmarl_graph.avpr"));
 		Schema edgelistSchema = vertexSchema.getField(EDGE_LIST).schema().getTypes().get(1);
 		Schema edgeSchema = edgelistSchema.getElementType().getTypes().get(1);
 		
