@@ -1,12 +1,7 @@
 package graphconverter;
 
-import graphconverter.readers.AdjacencyListReader;
-import graphconverter.readers.EdgeListReader;
-import graphconverter.readers.GreenMarlBinaryReader;
-import graphconverter.writers.AdjacencyListWriter;
-import graphconverter.writers.AvroWriter;
-import graphconverter.writers.GreenMarlBinaryWriter;
-import graphconverter.writers.SvcIIWriter;
+import graphconverter.readers.*;
+import graphconverter.writers.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,7 +27,8 @@ public class Main {
 		/*
 		 * Uncomment any of the lines below to choose an input format
 		 */
-		Graph graph = EdgeListReader.read(filename);
+		Graph graph = MultiThreadedEdgeListReader.read(filename);
+		//Graph graph = EdgeListReader.read(filename);
 		//Graph graph = AdjacencyListReader.read(filename);
 		//Graph graph = GreenMarlBinaryReader.read(filename);
 
@@ -54,16 +50,19 @@ public class Main {
 		AdjacencyListWriter.write(graph, filenameBase + "_novalues.adj", NodeEdgeValues.NONE);
 		AdjacencyListWriter.write(graph, filenameBase + "_random_ints.adj", NodeEdgeValues.RANDOM_INTS);
 		GreenMarlBinaryWriter.write(graph, filenameBase + ".bin");
-		//SvcIIWriter.write(graph, filenameBase + "_svcii_1", 1);
-		//SvcIIWriter.write(graph, filenameBase + "_svcii_2", 2);
+		SvcIIWriter.write(graph, filenameBase + "_svcii_1", 1);
+		SvcIIWriter.write(graph, filenameBase + "_svcii_2", 2);
 		SvcIIWriter.write(graph, filenameBase + "_svcii_4", 4);
-		//SvcIIWriter.write(graph, filenameBase + "_svcii_8", 8);
+		SvcIIWriter.write(graph, filenameBase + "_svcii_8", 8);
 		AvroWriter.write(graph, filenameBase + ".avro");
 	}
 	
 	public static void main(String[] args) {
 		try {
+			long start = System.currentTimeMillis();
 			new Main(args).start();
+			long stop = System.currentTimeMillis();
+			System.err.printf("Converter ran in %.2f seconds\n", (float)(stop - start) / 1000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
