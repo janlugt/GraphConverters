@@ -29,7 +29,7 @@ public class MultiThreadedEdgeListReader {
 		// Create graph
 		Graph graph = new Graph();
 
-		// Set up scanners
+		// Set up queue
 		BlockingQueue<String> q = new ArrayBlockingQueue<String>(100);
 		
 		// Producer
