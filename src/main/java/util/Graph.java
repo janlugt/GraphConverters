@@ -1,10 +1,10 @@
 package util;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeMap;
 
-public class Graph extends TreeMap<Integer, List<Integer>> {
+public class Graph extends HashMap<Integer, List<Integer>> {
 
 	private static final long serialVersionUID = -6578407579009331030L;
 
