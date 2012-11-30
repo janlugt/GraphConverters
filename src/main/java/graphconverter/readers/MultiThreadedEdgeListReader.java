@@ -1,5 +1,9 @@
 package graphconverter.readers;
 
+import graphconverter.util.Graph;
+import graphconverter.util.Settings;
+import graphconverter.util.TextFunctions;
+
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,9 +12,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.regex.Pattern;
 
-import util.Graph;
-import util.Settings;
-import util.TextFunctions;
 
 public class MultiThreadedEdgeListReader {
 	

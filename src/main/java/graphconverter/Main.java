@@ -1,13 +1,13 @@
 package graphconverter;
 
 import graphconverter.readers.*;
+import graphconverter.util.Graph;
+import graphconverter.util.NodeEdgeValues;
 import graphconverter.writers.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import util.Graph;
-import util.NodeEdgeValues;
 
 public class Main {
 

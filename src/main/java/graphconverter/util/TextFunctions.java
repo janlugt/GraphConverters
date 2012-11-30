@@ -1,4 +1,4 @@
-package util;
+package graphconverter.util;
 
 public class TextFunctions {
 	public static String[] splitLine(String line) {

@@ -1,4 +1,4 @@
-package util;
+package graphconverter.util;
 
 import java.util.HashSet;
 import java.util.Set;
