@@ -1,15 +1,16 @@
 package graphconverter.readers;
 
 
+import graphconverter.util.Graph;
+import graphconverter.util.Settings;
+import graphconverter.util.TextFunctions;
+
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import util.Graph;
-import util.Settings;
-import util.TextFunctions;
 
 public class AdjacencyListReader {
 	public static Graph read(String filename) throws IOException {

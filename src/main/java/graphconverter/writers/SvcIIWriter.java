@@ -1,6 +1,9 @@
 package graphconverter.writers;
 
 
+import graphconverter.util.Graph;
+import graphconverter.util.Settings;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,8 +15,6 @@ import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
-import util.Graph;
-import util.Settings;
 
 public class SvcIIWriter {
 	

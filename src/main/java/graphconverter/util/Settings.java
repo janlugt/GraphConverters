@@ -1,4 +1,4 @@
-package util;
+package graphconverter.util;
 
 public class Settings {
 	public final static double DUMMY_NODE_VALUE = 1.0;

@@ -1,5 +1,7 @@
 package graphconverter.writers;
 
+import graphconverter.util.Graph;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +13,6 @@ import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
 
-import util.Graph;
 
 public class AvroWriter {
 

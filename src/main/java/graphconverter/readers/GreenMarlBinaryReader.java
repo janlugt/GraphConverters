@@ -1,6 +1,9 @@
 package graphconverter.readers;
 
 
+import graphconverter.util.Graph;
+import graphconverter.util.Settings;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteOrder;
@@ -9,8 +12,6 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
-import util.Graph;
-import util.Settings;
 
 public class GreenMarlBinaryReader {
 	public static Graph read(String filename) throws IOException {

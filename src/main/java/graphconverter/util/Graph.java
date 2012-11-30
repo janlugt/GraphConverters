@@ -1,4 +1,4 @@
-package util;
+package graphconverter.util;
 
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -1,5 +1,9 @@
 package graphconverter.writers;
 
+import graphconverter.util.Graph;
+import graphconverter.util.NodeEdgeValues;
+import graphconverter.util.Settings;
+
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,9 +11,6 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.Random;
 
-import util.Graph;
-import util.NodeEdgeValues;
-import util.Settings;
 
 public class AdjacencyListWriter {
 

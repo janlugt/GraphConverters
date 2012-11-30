@@ -1,4 +1,4 @@
-package util;
+package graphconverter.util;
 
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
