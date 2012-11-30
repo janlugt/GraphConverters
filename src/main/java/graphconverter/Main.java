@@ -46,15 +46,22 @@ public class Main {
 		/*
 		 * Uncomment any of the lines below to specify output formats
 		 */
-		AdjacencyListWriter.write(graph, filenameBase + ".adj", NodeEdgeValues.DUMMY);
-		AdjacencyListWriter.write(graph, filenameBase + "_novalues.adj", NodeEdgeValues.NONE);
-		AdjacencyListWriter.write(graph, filenameBase + "_random_ints.adj", NodeEdgeValues.RANDOM_INTS);
-		GreenMarlBinaryWriter.write(graph, filenameBase + ".bin");
+//		AdjacencyListWriter.write(graph, filenameBase + ".adj", NodeEdgeValues.DUMMY);
+//		AdjacencyListWriter.write(graph, filenameBase + "_novalues.adj", NodeEdgeValues.NONE);
+//		AdjacencyListWriter.write(graph, filenameBase + "_random_ints.adj", NodeEdgeValues.RANDOM_INTS);
+//		GreenMarlBinaryWriter.write(graph, filenameBase + ".bin");
 		SvcIIWriter.write(graph, filenameBase + "_svcii_1", 1, true);
 		SvcIIWriter.write(graph, filenameBase + "_svcii_2", 2, true);
 		SvcIIWriter.write(graph, filenameBase + "_svcii_4", 4, true);
 		SvcIIWriter.write(graph, filenameBase + "_svcii_8", 8, true);
-		AvroWriter.write(graph, filenameBase + ".avro");
+               SvcIIWriter.write(graph, filenameBase + "_svcii_32", 32);
+               SvcIIWriter.write(graph, filenameBase + "_svcii_48", 48);
+               SvcIIWriter.write(graph, filenameBase + "_svcii_64", 64);
+               SvcIIWriter.write(graph, filenameBase + "_svcii_96", 96);
+               SvcIIWriter.write(graph, filenameBase + "_svcii_128", 128);
+               SvcIIWriter.write(graph, filenameBase + "_svcii_192", 192);
+               SvcIIWriter.write(graph, filenameBase + "_svcii_256", 256);
+//		AvroWriter.write(graph, filenameBase + ".avro");
 	}
 	
 	public static void main(String[] args) {
