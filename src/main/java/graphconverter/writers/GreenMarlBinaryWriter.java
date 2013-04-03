@@ -20,14 +20,18 @@ public class GreenMarlBinaryWriter {
 	
 	public static void write(Graph graph, String filename) throws IOException {
 		ByteBuffer[] buffers = allocateBuffers(totalIntCount(graph));
+		IntBuffer[] intbuffers = new IntBuffer[buffers.length];
+		for (int i = 0; i < buffers.length; i++) {
+			intbuffers[i] = buffers[i].asIntBuffer();
+		}
 
 		Integer[] keys = getVertexArray(graph);
 		Map<Integer, Integer> sourceIndex = sequentializeVertexIds(keys);
 
 		int current = 0;
-		current = writeHeader(graph, buffers, current);
-		current = writeVertices(graph, buffers, current, keys);
-		current = writeEdges(graph, buffers, current, keys, sourceIndex);
+		current = writeHeader(graph, intbuffers, current);
+		current = writeVertices(graph, intbuffers, current, keys);
+		current = writeEdges(graph, intbuffers, current, keys, sourceIndex);
 
 		writeToFile(filename, buffers);
 	}
@@ -68,8 +72,8 @@ public class GreenMarlBinaryWriter {
 		return sourceIndex;
 	}
 
-	private static int writeHeader(Graph graph, ByteBuffer[] buffers, int current) {
-		IntBuffer ib = buffers[current].asIntBuffer();
+	private static int writeHeader(Graph graph, IntBuffer[] buffers, int current) {
+		IntBuffer ib = buffers[current];
 		ib.put(Settings.GREEN_MARL_MAGIC_NUMBER); // Magic number
 		ib.put(Settings.GREEN_MARL_NODE_IDENTIFIER_SIZE); // Node identifier size
 		ib.put(Settings.GREEN_MARL_EDGE_IDENTIFIER_SIZE); // Edge identifier size
@@ -78,33 +82,33 @@ public class GreenMarlBinaryWriter {
 		return current;
 	}
 	
-	private static int writeVertices(Graph graph, ByteBuffer[] buffers, int current, Integer[] keys) {
-		IntBuffer ib = buffers[current].asIntBuffer();
+	private static int writeVertices(Graph graph, IntBuffer[] buffers, int current, Integer[] keys) {
+		IntBuffer ib = buffers[current];
 		int count = 0;
 		for (Integer source : keys) {
 			ib.put(count);
-			if (!ib.hasRemaining()) {
+			if (!ib.hasRemaining() && current + 1 < buffers.length) {
 				current++;
-				ib = buffers[current].asIntBuffer();
+				ib = buffers[current];
 			}
 			count += graph.get(source).size();
 		}
 		ib.put(count); // final dummy element
-		if (!ib.hasRemaining()) {
+		if (!ib.hasRemaining() && current + 1 < buffers.length) {
 			current++;
-			ib = buffers[current].asIntBuffer();
+			ib = buffers[current];
 		}
 		return current;
 	}
 	
-	private static int writeEdges(Graph graph, ByteBuffer[] buffers, int current, Integer[] keys, Map<Integer, Integer> sourceIndex) {
-		IntBuffer ib = buffers[current].asIntBuffer();
+	private static int writeEdges(Graph graph, IntBuffer[] buffers, int current, Integer[] keys, Map<Integer, Integer> sourceIndex) {
+		IntBuffer ib = buffers[current];
 		for (Integer source : keys) {
 			for (Integer dest : graph.get(source)) {
 				ib.put(sourceIndex.get(dest));
-				if (!ib.hasRemaining()) {
+				if (!ib.hasRemaining() && current + 1 < buffers.length) {
 					current++;
-					ib = buffers[current].asIntBuffer();
+					ib = buffers[current];
 				}
 			}
 		}

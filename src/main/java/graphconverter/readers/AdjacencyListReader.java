@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 
 public class AdjacencyListReader {
-	public static Graph read(String filename) throws IOException {
+	public static Graph read(String filename, int nodeProps, int edgeProps) throws IOException {
 		// Input format: [source vertex id] [destination vertex id]\n
 		
 		// Create scanner for input
@@ -33,7 +33,7 @@ public class AdjacencyListReader {
 			Integer source = Integer.parseInt(vertices[0]);
 			graph.addVertex(source);
 			// Skip over edge values, so += 2
-			for (int i = 2; i < vertices.length; i += 2) {
+			for (int i = 1 + nodeProps; i < vertices.length; i += 1 + edgeProps) {
 				Integer dest = Integer.parseInt(vertices[i]);
 				graph.addVertex(dest);
 				graph.addEdge(source, dest);
