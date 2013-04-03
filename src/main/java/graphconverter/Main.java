@@ -27,9 +27,9 @@ public class Main {
 		/*
 		 * Uncomment any of the lines below to choose an input format
 		 */
-		Graph graph = MultiThreadedEdgeListReader.read(filename);
+		//Graph graph = MultiThreadedEdgeListReader.read(filename);
 		//Graph graph = EdgeListReader.read(filename);
-		//Graph graph = AdjacencyListReader.read(filename);
+		Graph graph = AdjacencyListReader.read(filename, 0, 0);
 		//Graph graph = GreenMarlBinaryReader.read(filename);
 
 		/*
@@ -54,6 +54,10 @@ public class Main {
 		SvcIIWriter.write(graph, filenameBase + "_svcii_2", 2, true);
 		SvcIIWriter.write(graph, filenameBase + "_svcii_4", 4, true);
 		SvcIIWriter.write(graph, filenameBase + "_svcii_8", 8, true);
+		SvcIIWriter.write(graph, filenameBase + "_svcii_4", 16, true);
+		SvcIIWriter.write(graph, filenameBase + "_svcii_8", 32, true);
+		SvcIIWriter.write(graph, filenameBase + "_svcii_4", 64, true);
+		SvcIIWriter.write(graph, filenameBase + "_svcii_8", 128, true);
 		AvroWriter.write(graph, filenameBase + ".avro");
 	}
 	
