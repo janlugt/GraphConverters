@@ -32,7 +32,7 @@ public class AdjacencyListReader {
 			String[] vertices = TextFunctions.splitLine(line);
 			Integer source = Integer.parseInt(vertices[0]);
 			graph.addVertex(source);
-			// Skip over edge values, so += 2
+			// Skip over edge values, so += 1+edgeprops
 			for (int i = 1 + nodeProps; i < vertices.length; i += 1 + edgeProps) {
 				Integer dest = Integer.parseInt(vertices[i]);
 				graph.addVertex(dest);
